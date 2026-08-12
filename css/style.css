@@ -1,0 +1,202 @@
+body {
+    background-color: #f5f6f8;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* SIDEBAR */
+
+.sidebar {
+    width: 240px;
+    min-height: 100vh;
+    background: #212529;
+    color: white;
+    position: sticky;
+    top: 0;
+}
+
+.sidebar-header {
+    padding: 20px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.sidebar-header i {
+    margin-right: 8px;
+}
+
+.sidebar .nav-link {
+    color: #adb5bd;
+    padding: 12px 20px;
+    margin: 2px 10px;
+    border-radius: 8px;
+}
+
+.sidebar .nav-link:hover {
+    background: #343a40;
+    color: white;
+}
+
+.sidebar .nav-link.active {
+    background: #0d6efd;
+    color: white;
+}
+
+.sidebar .nav-link i {
+    margin-right: 8px;
+}
+
+
+/* CONTENT */
+
+.content {
+    min-width: 0;
+}
+
+
+/* STAT CARD */
+
+.stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.stat-card small {
+    color: #6c757d;
+}
+
+.stat-card h3 {
+    margin: 5px 0 0;
+    font-weight: 700;
+}
+
+.stat-card > i {
+    font-size: 32px;
+    color: #0d6efd;
+}
+
+
+/* TABLE */
+
+.table {
+    white-space: nowrap;
+}
+
+.table th {
+    font-size: 13px;
+}
+
+.table td {
+    font-size: 13px;
+}
+
+
+/* BADGE */
+
+.status-badge {
+    min-width: 75px;
+}
+
+
+/* MODAL */
+
+.modal-content {
+    border: none;
+    border-radius: 12px;
+}
+
+.modal-header {
+    background: #f8f9fa;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+    .sidebar {
+        width: 70px;
+    }
+
+    .sidebar-header span {
+        display: none;
+    }
+
+    .sidebar-header {
+        text-align: center;
+    }
+
+    .sidebar .nav-link {
+        text-align: center;
+        margin: 2px 5px;
+    }
+
+    .sidebar .nav-link i {
+        margin: 0;
+    }
+
+    .sidebar .nav-link {
+        font-size: 0;
+    }
+
+    .sidebar .nav-link i {
+        font-size: 18px;
+    }
+
+}
+
+
+/* PRINT */
+
+@media print {
+
+    body {
+        background: white;
+    }
+
+    .sidebar,
+    .navbar,
+    .no-print,
+    .btn,
+    .modal,
+    .card-header {
+        display: none !important;
+    }
+
+    .content {
+        width: 100%;
+    }
+
+    .container-fluid {
+        padding: 0 !important;
+    }
+
+    .card {
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    .table {
+        font-size: 9px;
+    }
+
+    .table th,
+    .table td {
+        padding: 4px;
+    }
+
+    #resiTable th:last-child,
+    #resiTable td:last-child {
+        display: none;
+    }
+
+    @page {
+        size: landscape;
+        margin: 10mm;
+    }
+}
