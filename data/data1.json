@@ -1,1 +1,30 @@
-a
+[
+    {
+        "id": 1,
+        "nomorResi": "SPXID123456789",
+        "jenisKasus": "Pengembalian Dana",
+        "status": "Pending",
+        "tanggalPengajuan": "2026-08-12",
+        "tanggalSelesai": "",
+        "namaBarang": "JRP Kaliper Rem Formula",
+        "kodeBarang": "JRP001",
+        "variasiBarang": "Hitam",
+        "jumlah": 1,
+        "jenisBanding": "Banding Ongkir",
+        "catatan": "Menunggu proses pengajuan"
+    },
+    {
+        "id": 2,
+        "nomorResi": "SPXID987654321",
+        "jenisKasus": "Pengiriman Gagal",
+        "status": "Success",
+        "tanggalPengajuan": "2026-08-10",
+        "tanggalSelesai": "2026-08-11",
+        "namaBarang": "JRP Shockbreaker",
+        "kodeBarang": "JRP002",
+        "variasiBarang": "330mm Silver",
+        "jumlah": 1,
+        "jenisBanding": "Barang Rusak",
+        "catatan": "Pengajuan selesai"
+    }
+]
