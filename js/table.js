@@ -1,73 +1,114 @@
 function renderTable() {
 
-    const tbody = document.getElementById("resiTableBody");
+    const tbody =
+        document.getElementById("returnTableBody");
 
-    const search = document
-        .getElementById("searchInput")
-        .value
-        .toLowerCase();
 
-    const statusFilter =
+    const search =
+        document
+            .getElementById("searchInput")
+            .value
+            .toLowerCase();
+
+
+    const status =
         document.getElementById("statusFilter").value;
 
-    const kasusFilter =
-        document.getElementById("kasusFilter").value;
 
-    const bandingFilter =
+    const banding =
         document.getElementById("bandingFilter").value;
 
 
-    const filteredData = resiData.filter(item => {
-
-        const searchableText = `
-            ${item.nomorResi}
-            ${item.namaBarang}
-            ${item.kodeBarang}
-            ${item.variasiBarang}
-        `.toLowerCase();
+    const alasan =
+        document.getElementById("alasanFilter").value;
 
 
-        const matchSearch =
-            searchableText.includes(search);
+    /*
+        FILTER DATA
+    */
+
+    const filteredData =
+        returnData.filter(item => {
 
 
-        const matchStatus =
-            !statusFilter ||
-            item.status === statusFilter;
+            const searchableText = `
+
+                ${item.noPesanan}
+
+                ${item.noResi}
+
+                ${item.namaBarang}
+
+                ${item.kodeBarang}
+
+                ${item.variasi}
+
+                ${item.keterangan}
+
+            `.toLowerCase();
 
 
-        const matchKasus =
-            !kasusFilter ||
-            item.jenisKasus === kasusFilter;
+            const matchSearch =
+                searchableText.includes(search);
 
 
-        const matchBanding =
-            !bandingFilter ||
-            item.jenisBanding === bandingFilter;
+            const matchStatus =
+                !status ||
+                item.status === status;
 
 
-        return (
-            matchSearch &&
-            matchStatus &&
-            matchKasus &&
-            matchBanding
-        );
+            const matchBanding =
+                !banding ||
+                item.pengajuanBanding === banding;
 
-    });
 
+            const matchAlasan =
+                !alasan ||
+                item.alasanPengajuan === alasan;
+
+
+            return (
+                matchSearch &&
+                matchStatus &&
+                matchBanding &&
+                matchAlasan
+            );
+
+        });
+
+
+    /*
+        RESET TABLE
+    */
 
     tbody.innerHTML = "";
 
 
+    /*
+        TIDAK ADA DATA
+    */
+
     if (filteredData.length === 0) {
 
         tbody.innerHTML = `
+
             <tr>
-                <td colspan="12" class="text-center py-4">
-                    <i class="bi bi-inbox fs-3 d-block mb-2"></i>
-                    Data tidak ditemukan
+
+                <td
+                    colspan="14"
+                    class="text-center py-5"
+                >
+
+                    <i
+                        class="bi bi-inbox fs-2 d-block mb-2"
+                    ></i>
+
+                    Tidak ada data yang ditemukan.
+
                 </td>
+
             </tr>
+
         `;
 
         return;
@@ -75,213 +116,209 @@ function renderTable() {
     }
 
 
-    filteredData.forEach((item, index) => {
+    /*
+        RENDER DATA
+    */
 
-        const row = document.createElement("tr");
+    filteredData.forEach(
+        (item, index) => {
 
-        row.innerHTML = `
 
-            <td>
-                ${index + 1}
-            </td>
+            const totalHarga =
+                Number(item.jumlah) *
+                Number(item.hargaSatuan);
 
-            <td>
-                <strong>
-                    ${escapeHTML(item.nomorResi)}
-                </strong>
-            </td>
 
-            <td>
-                ${escapeHTML(item.jenisKasus)}
-            </td>
+            const row =
+                document.createElement("tr");
 
-            <td>
-                ${getStatusBadge(item.status)}
-            </td>
 
-            <td>
-                ${formatDate(item.tanggalPengajuan)}
-            </td>
+            row.innerHTML = `
 
-            <td>
-                ${item.tanggalSelesai
-                    ? formatDate(item.tanggalSelesai)
-                    : "-"
-                }
-            </td>
+                <td>
+                    ${index + 1}
+                </td>
 
-            <td>
-                ${escapeHTML(item.namaBarang)}
-            </td>
 
-            <td>
-                ${escapeHTML(item.kodeBarang || "-")}
-            </td>
+                <td>
 
-            <td>
-                ${escapeHTML(item.variasiBarang || "-")}
-            </td>
+                    ${
+                        item.noPesanan
+                        ? escapeHTML(item.noPesanan)
+                        : '<span class="text-muted">-</span>'
+                    }
 
-            <td class="text-center">
-                ${item.jumlah}
-            </td>
+                </td>
 
-            <td>
-                ${escapeHTML(item.jenisBanding)}
-            </td>
 
-            <td>
+                <td>
 
-                <div class="d-flex gap-1">
+                    <strong>
+                        ${escapeHTML(item.noResi)}
+                    </strong>
 
-                    <button
-                        class="btn btn-sm btn-info text-white"
-                        onclick="showDetail(${item.id})"
-                        title="Detail"
-                    >
-                        <i class="bi bi-eye"></i>
-                    </button>
+                </td>
 
-                    <button
-                        class="btn btn-sm btn-warning"
-                        onclick="openEditModal(${item.id})"
-                        title="Edit"
-                    >
-                        <i class="bi bi-pencil"></i>
-                    </button>
 
-                    <button
-                        class="btn btn-sm btn-danger"
-                        onclick="removeData(${item.id})"
-                        title="Hapus"
-                    >
-                        <i class="bi bi-trash"></i>
-                    </button>
+                <td>
 
-                </div>
+                    ${getStatusBadge(item.status)}
 
-            </td>
+                </td>
 
-        `;
 
-        tbody.appendChild(row);
+                <td>
 
-    });
+                    ${
+                        item.pengajuanBanding === "Ya"
+
+                        ? `
+                            <span class="badge text-bg-warning">
+                                Ya
+                            </span>
+                        `
+
+                        : `
+                            <span class="badge text-bg-secondary">
+                                Tidak
+                            </span>
+                        `
+                    }
+
+                </td>
+
+
+                <td>
+
+                    ${
+                        item.alasanPengajuan
+                        ? escapeHTML(item.alasanPengajuan)
+                        : '<span class="text-muted">-</span>'
+                    }
+
+                </td>
+
+
+                <td>
+
+                    ${escapeHTML(item.namaBarang)}
+
+                </td>
+
+
+                <td>
+
+                    ${escapeHTML(item.kodeBarang || "-")}
+
+                </td>
+
+
+                <td>
+
+                    ${escapeHTML(item.variasi || "-")}
+
+                </td>
+
+
+                <td class="text-center">
+
+                    ${item.jumlah}
+
+                </td>
+
+
+                <td>
+
+                    ${formatRupiah(item.hargaSatuan)}
+
+                </td>
+
+
+                <td>
+
+                    <strong>
+
+                        ${formatRupiah(totalHarga)}
+
+                    </strong>
+
+                </td>
+
+
+                <td>
+
+                    ${formatDate(item.tanggalDiterima)}
+
+                </td>
+
+
+                <td>
+
+                    ${escapeHTML(item.keterangan || "-")}
+
+                </td>
+
+            `;
+
+
+            tbody.appendChild(row);
+
+        }
+    );
 
 }
 
 
-/**
- * Status badge
- */
+/* ================= STATUS BADGE ================= */
+
 function getStatusBadge(status) {
 
-    if (status === "Pending") {
+    if (
+        status === "Diterima dengan Baik"
+    ) {
 
         return `
-            <span class="badge text-bg-warning status-badge">
-                Pending
+
+            <span class="badge badge-custom status-good">
+
+                <i class="bi bi-check-circle"></i>
+
+                Baik
+
             </span>
+
         `;
 
     }
 
-    if (status === "Success") {
+
+    if (
+        status === "Diterima Tidak Baik"
+    ) {
 
         return `
-            <span class="badge text-bg-success status-badge">
-                Success
+
+            <span class="badge badge-custom status-bad">
+
+                <i class="bi bi-x-circle"></i>
+
+                Tidak Baik
+
             </span>
+
         `;
 
     }
 
-    if (status === "Gagal") {
-
-        return `
-            <span class="badge text-bg-danger status-badge">
-                Gagal
-            </span>
-        `;
-
-    }
 
     return `
+
         <span class="badge text-bg-secondary">
+
             ${escapeHTML(status)}
+
         </span>
+
     `;
-
-}
-
-
-/**
- * Format tanggal
- */
-function formatDate(date) {
-
-    if (!date) {
-        return "-";
-    }
-
-    const parts = date.split("-");
-
-    if (parts.length !== 3) {
-        return date;
-    }
-
-    return `${parts[2]}-${parts[1]}-${parts[0]}`;
-
-}
-
-
-/**
- * Escape HTML
- */
-function escapeHTML(value) {
-
-    if (value === null || value === undefined) {
-        return "";
-    }
-
-    return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-
-}
-
-
-/**
- * Hapus data
- */
-function removeData(id) {
-
-    const item = resiData.find(
-        item => Number(item.id) === Number(id)
-    );
-
-    if (!item) {
-        return;
-    }
-
-
-    const confirmation = confirm(
-        `Yakin ingin menghapus resi ${item.nomorResi}?`
-    );
-
-
-    if (!confirmation) {
-        return;
-    }
-
-
-    deleteData(id);
-
-    renderTable();
-
-    updateDashboard();
 
 }
