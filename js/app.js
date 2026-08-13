@@ -1,10 +1,17 @@
+let returnData = [];
+
+
+/* ================= INITIALIZE ================= */
+
 document.addEventListener("DOMContentLoaded", async () => {
 
-    await initializeData();
+    await loadData();
 
     setupNavigation();
 
     setupFilter();
+
+    setupMonthFilter();
 
     renderTable();
 
@@ -13,57 +20,87 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 
-/**
- * Navigation
- */
+/* ================= LOAD JSON ================= */
+
+async function loadData() {
+
+    try {
+
+        const response = await fetch("data/data.json");
+
+        if (!response.ok) {
+            throw new Error("Data JSON tidak ditemukan.");
+        }
+
+        returnData = await response.json();
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Gagal membaca data.json. Pastikan website dijalankan menggunakan Live Server atau GitHub Pages."
+        );
+
+        returnData = [];
+
+    }
+
+}
+
+
+/* ================= NAVIGATION ================= */
+
 function setupNavigation() {
 
     const dashboardSection =
         document.getElementById("dashboardSection");
 
-    const dataResiSection =
-        document.getElementById("dataResiSection");
+    const dataReturnSection =
+        document.getElementById("dataReturnSection");
 
 
     const menuDashboard =
         document.getElementById("menuDashboard");
 
-    const menuDataResi =
-        document.getElementById("menuDataResi");
+    const menuDataReturn =
+        document.getElementById("menuDataReturn");
 
 
-    menuDashboard.addEventListener("click", event => {
+    menuDashboard.addEventListener("click", function (event) {
 
         event.preventDefault();
 
         dashboardSection.classList.remove("d-none");
 
-        dataResiSection.classList.add("d-none");
+        dataReturnSection.classList.add("d-none");
 
         menuDashboard.classList.add("active");
 
-        menuDataResi.classList.remove("active");
+        menuDataReturn.classList.remove("active");
 
         document.getElementById("pageTitle").textContent =
             "Dashboard";
 
+        updateDashboard();
+
     });
 
 
-    menuDataResi.addEventListener("click", event => {
+    menuDataReturn.addEventListener("click", function (event) {
 
         event.preventDefault();
 
         dashboardSection.classList.add("d-none");
 
-        dataResiSection.classList.remove("d-none");
+        dataReturnSection.classList.remove("d-none");
 
         menuDashboard.classList.remove("active");
 
-        menuDataResi.classList.add("active");
+        menuDataReturn.classList.add("active");
 
         document.getElementById("pageTitle").textContent =
-            "Data Resi";
+            "Data Return";
 
         renderTable();
 
@@ -72,9 +109,8 @@ function setupNavigation() {
 }
 
 
-/**
- * Filter
- */
+/* ================= FILTER ================= */
+
 function setupFilter() {
 
     document
@@ -88,57 +124,126 @@ function setupFilter() {
 
 
     document
-        .getElementById("kasusFilter")
+        .getElementById("bandingFilter")
         .addEventListener("change", renderTable);
 
 
     document
-        .getElementById("bandingFilter")
+        .getElementById("alasanFilter")
         .addEventListener("change", renderTable);
 
 }
 
 
-/**
- * Dashboard
- */
-function updateDashboard() {
+/* ================= MONTH FILTER ================= */
 
-    const total =
-        resiData.length;
+function setupMonthFilter() {
 
-
-    const pending =
-        resiData.filter(
-            item => item.status === "Pending"
-        ).length;
+    const monthFilter =
+        document.getElementById("monthFilter");
 
 
-    const success =
-        resiData.filter(
-            item => item.status === "Success"
-        ).length;
+    monthFilter.addEventListener(
+        "change",
+        updateDashboard
+    );
 
 
-    const gagal =
-        resiData.filter(
-            item => item.status === "Gagal"
-        ).length;
+    /*
+        Default bulan sekarang
+    */
+
+    const now = new Date();
+
+    const year =
+        now.getFullYear();
+
+    const month =
+        String(now.getMonth() + 1)
+        .padStart(2, "0");
 
 
-    document.getElementById("totalData").textContent =
-        total;
+    monthFilter.value =
+        `${year}-${month}`;
+
+}
 
 
-    document.getElementById("totalPending").textContent =
-        pending;
+/* ================= FORMAT RUPIAH ================= */
+
+function formatRupiah(number) {
+
+    return new Intl.NumberFormat(
+        "id-ID",
+        {
+            style: "currency",
+            currency: "IDR",
+            maximumFractionDigits: 0
+        }
+    ).format(number);
+
+}
 
 
-    document.getElementById("totalSuccess").textContent =
-        success;
+/* ================= FORMAT TANGGAL ================= */
+
+function formatDate(date) {
+
+    if (!date) {
+        return "-";
+    }
+
+    const parts = date.split("-");
+
+    if (parts.length !== 3) {
+        return date;
+    }
+
+    return `${parts[2]}-${parts[1]}-${parts[0]}`;
+
+}
 
 
-    document.getElementById("totalGagal").textContent =
-        gagal;
+/* ================= ESCAPE HTML ================= */
+
+function escapeHTML(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+        return "";
+    }
+
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+}
+
+
+/* ================= PRINT ================= */
+
+function printTable() {
+
+    /*
+        Pindah otomatis ke halaman Data Return
+        sebelum print.
+    */
+
+    document
+        .getElementById("dashboardSection")
+        .classList.add("d-none");
+
+
+    document
+        .getElementById("dataReturnSection")
+        .classList.remove("d-none");
+
+
+    window.print();
 
 }
