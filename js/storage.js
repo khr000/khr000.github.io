@@ -1,138 +1,103 @@
-const STORAGE_KEY = "resiManagementData";
-
-let resiData = [];
+const STORAGE_KEY = "returnManagementData";
 
 
-/**
- * Load data awal dari JSON
- */
-async function initializeData() {
+/* =====================================================
+   AMBIL DATA
+===================================================== */
 
-    const savedData = localStorage.getItem(STORAGE_KEY);
+function getStoredData() {
 
-    if (savedData) {
+    const stored =
+        localStorage.getItem(STORAGE_KEY);
 
-        resiData = JSON.parse(savedData);
 
-    } else {
+    if (stored) {
 
         try {
 
-            const response = await fetch("data/data.json");
-
-            const data = await response.json();
-
-            resiData = data;
-
-            saveData();
+            return JSON.parse(stored);
 
         } catch (error) {
 
-            console.error("Gagal membaca data.json:", error);
-
-            resiData = [];
+            console.error(
+                "Data localStorage rusak.",
+                error
+            );
 
         }
 
     }
 
+
+    return [];
+
 }
 
 
-/**
- * Simpan data ke localStorage
- */
-function saveData() {
+/* =====================================================
+   SIMPAN DATA
+===================================================== */
+
+function saveStoredData(data) {
 
     localStorage.setItem(
         STORAGE_KEY,
-        JSON.stringify(resiData)
+        JSON.stringify(data)
     );
 
 }
 
 
-/**
- * Generate ID
- */
-function generateId() {
+/* =====================================================
+   INISIALISASI DATA JSON
+===================================================== */
 
-    if (resiData.length === 0) {
-        return 1;
+async function initializeStorage() {
+
+    const stored =
+        localStorage.getItem(STORAGE_KEY);
+
+
+    /*
+        Kalau localStorage belum ada,
+        ambil data dari data.json.
+    */
+
+    if (!stored) {
+
+        try {
+
+            const response =
+                await fetch("data/data.json");
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "data.json tidak ditemukan."
+                );
+
+            }
+
+
+            const jsonData =
+                await response.json();
+
+
+            saveStoredData(jsonData);
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            saveStoredData([]);
+
+        }
+
     }
 
-    return Math.max(
-        ...resiData.map(item => Number(item.id))
-    ) + 1;
 
-}
-
-
-/**
- * Tambah data
- */
-function addData(data) {
-
-    data.id = generateId();
-
-    resiData.push(data);
-
-    saveData();
-
-}
-
-
-/**
- * Update data
- */
-function updateData(id, newData) {
-
-    const index = resiData.findIndex(
-        item => Number(item.id) === Number(id)
-    );
-
-    if (index !== -1) {
-
-        newData.id = Number(id);
-
-        resiData[index] = newData;
-
-        saveData();
-
-    }
-
-}
-
-
-/**
- * Hapus data
- */
-function deleteData(id) {
-
-    resiData = resiData.filter(
-        item => Number(item.id) !== Number(id)
-    );
-
-    saveData();
-
-}
-
-
-/**
- * Reset seluruh data
- */
-function resetData() {
-
-    const confirmReset = confirm(
-        "Yakin ingin menghapus semua data tersimpan dan mengembalikan data awal?"
-    );
-
-    if (!confirmReset) {
-        return;
-    }
-
-    localStorage.removeItem(STORAGE_KEY);
-
-    location.reload();
+    return getStoredData();
 
 }
