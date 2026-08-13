@@ -1,6 +1,93 @@
+function getFilteredDataForExport() {
+
+
+    const search =
+        document.getElementById(
+            "searchInput"
+        ).value.toLowerCase();
+
+
+    const status =
+        document.getElementById(
+            "statusFilter"
+        ).value;
+
+
+    const banding =
+        document.getElementById(
+            "bandingFilter"
+        ).value;
+
+
+    const alasan =
+        document.getElementById(
+            "alasanFilter"
+        ).value;
+
+
+    return returnData.filter(
+        item => {
+
+
+            const searchableText = `
+
+                ${item.noPesanan || ""}
+
+                ${item.noResi || ""}
+
+                ${item.namaBarang || ""}
+
+                ${item.kodeBarang || ""}
+
+                ${item.variasi || ""}
+
+                ${item.keterangan || ""}
+
+            `.toLowerCase();
+
+
+            return (
+
+                searchableText
+                    .includes(search) &&
+
+                (
+                    !status ||
+                    item.status === status
+                ) &&
+
+                (
+                    !banding ||
+                    item.pengajuanBanding === banding
+                ) &&
+
+                (
+                    !alasan ||
+                    item.alasanPengajuan === alasan
+                )
+
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   EXPORT EXCEL
+===================================================== */
+
 function exportExcel() {
 
-    if (returnData.length === 0) {
+
+    const filteredData =
+        getFilteredDataForExport();
+
+
+    if (
+        filteredData.length === 0
+    ) {
 
         alert(
             "Tidak ada data untuk diexport."
@@ -11,81 +98,18 @@ function exportExcel() {
     }
 
 
-    /*
-        Ambil data yang sedang ditampilkan
-        berdasarkan filter.
-    */
-
-    const search =
-        document
-            .getElementById("searchInput")
-            .value
-            .toLowerCase();
-
-
-    const status =
-        document.getElementById("statusFilter").value;
-
-
-    const banding =
-        document.getElementById("bandingFilter").value;
-
-
-    const alasan =
-        document.getElementById("alasanFilter").value;
-
-
-    const filteredData =
-        returnData.filter(item => {
-
-
-            const searchableText = `
-
-                ${item.noPesanan}
-
-                ${item.noResi}
-
-                ${item.namaBarang}
-
-                ${item.kodeBarang}
-
-                ${item.variasi}
-
-                ${item.keterangan}
-
-            `.toLowerCase();
-
-
-            return (
-
-                searchableText.includes(search) &&
-
-                (!status ||
-                    item.status === status) &&
-
-                (!banding ||
-                    item.pengajuanBanding === banding) &&
-
-                (!alasan ||
-                    item.alasanPengajuan === alasan)
-
-            );
-
-        });
-
-
-    /*
-        FORMAT UNTUK EXCEL
-    */
-
     const excelData =
         filteredData.map(
             (item, index) => {
 
 
                 const total =
-                    Number(item.jumlah) *
-                    Number(item.hargaSatuan);
+                    Number(
+                        item.jumlah || 0
+                    ) *
+                    Number(
+                        item.hargaSatuan || 0
+                    );
 
 
                 return {
@@ -97,19 +121,19 @@ function exportExcel() {
                         item.noPesanan || "",
 
                     "No Resi":
-                        item.noResi,
+                        item.noResi || "",
 
                     "Status":
-                        item.status,
+                        item.status || "",
 
                     "Pengajuan Banding":
-                        item.pengajuanBanding,
+                        item.pengajuanBanding || "",
 
                     "Alasan Pengajuan":
                         item.alasanPengajuan || "",
 
                     "Nama Barang":
-                        item.namaBarang,
+                        item.namaBarang || "",
 
                     "Kode Barang":
                         item.kodeBarang || "",
@@ -118,16 +142,16 @@ function exportExcel() {
                         item.variasi || "",
 
                     "Jumlah":
-                        item.jumlah,
+                        item.jumlah || 0,
 
                     "Harga Satuan":
-                        item.hargaSatuan,
+                        item.hargaSatuan || 0,
 
                     "Total Harga":
                         total,
 
                     "Tanggal Diterima":
-                        item.tanggalDiterima,
+                        item.tanggalDiterima || "",
 
                     "Keterangan":
                         item.keterangan || ""
@@ -138,19 +162,8 @@ function exportExcel() {
         );
 
 
-    if (excelData.length === 0) {
-
-        alert(
-            "Tidak ada data sesuai filter."
-        );
-
-        return;
-
-    }
-
-
     /*
-        BUAT WORKSHEET
+        WORKSHEET
     */
 
     const worksheet =
@@ -160,7 +173,7 @@ function exportExcel() {
 
 
     /*
-        BUAT WORKBOOK
+        WORKBOOK
     */
 
     const workbook =
@@ -175,7 +188,7 @@ function exportExcel() {
 
 
     /*
-        NAMA FILE
+        FILE NAME
     */
 
     const today =
