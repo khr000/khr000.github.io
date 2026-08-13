@@ -1,334 +1,630 @@
-let resiModal;
-let detailModal;
+/* =====================================================
+   SETUP FORM
+===================================================== */
+
+function setupFormEvents() {
 
 
-document.addEventListener("DOMContentLoaded", () => {
+    const banding =
+        document.getElementById(
+            "pengajuanBanding"
+        );
 
-    resiModal = new bootstrap.Modal(
-        document.getElementById("resiModal")
+
+    const alasan =
+        document.getElementById(
+            "alasanPengajuan"
+        );
+
+
+    /*
+        Ketika banding = Ya,
+        alasan aktif.
+    */
+
+    banding.addEventListener(
+        "change",
+        function () {
+
+
+            if (this.value === "Ya") {
+
+                alasan.disabled = false;
+
+            } else {
+
+                alasan.disabled = true;
+
+                alasan.value = "";
+
+            }
+
+        }
     );
 
-    detailModal = new bootstrap.Modal(
-        document.getElementById("detailModal")
-    );
 
-
-    document
-        .getElementById("resiForm")
-        .addEventListener("submit", handleFormSubmit);
-
-});
-
-
-/**
- * Buka modal tambah
- */
-function openAddModal() {
+    /*
+        Submit form
+    */
 
     document
-        .getElementById("resiForm")
-        .reset();
-
-
-    document.getElementById("editId").value = "";
-
-    document.getElementById("modalTitle").textContent =
-        "Tambah Data Resi";
-
-
-    document.getElementById("tanggalPengajuan").value =
-        getToday();
-
-
-    document.getElementById("status").value =
-        "Pending";
-
-
-    document.getElementById("jenisBanding").value =
-        "Tidak Ada";
-
-
-    resiModal.show();
+        .getElementById("returnForm")
+        .addEventListener(
+            "submit",
+            saveForm
+        );
 
 }
 
 
-/**
- * Buka modal edit
- */
-function openEditModal(id) {
+/* =====================================================
+   PREPARE ADD
+===================================================== */
 
-    const item = resiData.find(
-        item => Number(item.id) === Number(id)
-    );
+function prepareAddForm() {
 
 
-    if (!item) {
-        return;
-    }
+    const form =
+        document.getElementById(
+            "returnForm"
+        );
 
 
-    document.getElementById("modalTitle").textContent =
-        "Edit Data Resi";
+    form.reset();
 
 
-    document.getElementById("editId").value =
-        item.id;
+    document.getElementById(
+        "editId"
+    ).value = "";
 
 
-    document.getElementById("nomorResi").value =
-        item.nomorResi;
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
+        "Tambah Data Return";
 
 
-    document.getElementById("jenisKasus").value =
-        item.jenisKasus;
+    /*
+        Default
+    */
+
+    document.getElementById(
+        "pengajuanBanding"
+    ).value = "Tidak";
 
 
-    document.getElementById("status").value =
-        item.status;
+    const alasan =
+        document.getElementById(
+            "alasanPengajuan"
+        );
 
 
-    document.getElementById("tanggalPengajuan").value =
-        item.tanggalPengajuan;
+    alasan.disabled = true;
+
+    alasan.value = "";
 
 
-    document.getElementById("tanggalSelesai").value =
-        item.tanggalSelesai || "";
+    /*
+        Default tanggal hari ini
+    */
+
+    const today =
+        new Date()
+            .toISOString()
+            .split("T")[0];
 
 
-    document.getElementById("namaBarang").value =
-        item.namaBarang;
-
-
-    document.getElementById("kodeBarang").value =
-        item.kodeBarang || "";
-
-
-    document.getElementById("variasiBarang").value =
-        item.variasiBarang || "";
-
-
-    document.getElementById("jumlah").value =
-        item.jumlah;
-
-
-    document.getElementById("jenisBanding").value =
-        item.jenisBanding || "Tidak Ada";
-
-
-    document.getElementById("catatan").value =
-        item.catatan || "";
-
-
-    resiModal.show();
+    document.getElementById(
+        "tanggalDiterima"
+    ).value = today;
 
 }
 
 
-/**
- * Submit form
- */
-function handleFormSubmit(event) {
+/* =====================================================
+   SAVE FORM
+===================================================== */
+
+function saveForm(event) {
 
     event.preventDefault();
 
 
     const editId =
-        document.getElementById("editId").value;
+        document.getElementById(
+            "editId"
+        ).value;
 
 
-    const data = {
-
-        nomorResi:
-            document.getElementById("nomorResi").value.trim(),
-
-        jenisKasus:
-            document.getElementById("jenisKasus").value,
-
-        status:
-            document.getElementById("status").value,
-
-        tanggalPengajuan:
-            document.getElementById("tanggalPengajuan").value,
-
-        tanggalSelesai:
-            document.getElementById("tanggalSelesai").value,
-
-        namaBarang:
-            document.getElementById("namaBarang").value.trim(),
-
-        kodeBarang:
-            document.getElementById("kodeBarang").value.trim(),
-
-        variasiBarang:
-            document.getElementById("variasiBarang").value.trim(),
-
-        jumlah:
-            Number(document.getElementById("jumlah").value),
-
-        jenisBanding:
-            document.getElementById("jenisBanding").value,
-
-        catatan:
-            document.getElementById("catatan").value.trim()
-
-    };
+    const noPesanan =
+        document.getElementById(
+            "noPesanan"
+        ).value.trim();
 
 
-    if (editId) {
+    const noResi =
+        document.getElementById(
+            "noResi"
+        ).value.trim();
 
-        updateData(editId, data);
 
-    } else {
+    const namaBarang =
+        document.getElementById(
+            "namaBarang"
+        ).value.trim();
 
-        addData(data);
+
+    const kodeBarang =
+        document.getElementById(
+            "kodeBarang"
+        ).value.trim();
+
+
+    const variasi =
+        document.getElementById(
+            "variasi"
+        ).value.trim();
+
+
+    const jumlah =
+        Number(
+            document.getElementById(
+                "jumlah"
+            ).value
+        );
+
+
+    const hargaSatuan =
+        Number(
+            document.getElementById(
+                "hargaSatuan"
+            ).value
+        );
+
+
+    const status =
+        document.getElementById(
+            "status"
+        ).value;
+
+
+    const pengajuanBanding =
+        document.getElementById(
+            "pengajuanBanding"
+        ).value;
+
+
+    const alasanPengajuan =
+        pengajuanBanding === "Ya"
+            ? document.getElementById(
+                "alasanPengajuan"
+            ).value
+            : "";
+
+
+    const tanggalDiterima =
+        document.getElementById(
+            "tanggalDiterima"
+        ).value;
+
+
+    const keterangan =
+        document.getElementById(
+            "keterangan"
+        ).value.trim();
+
+
+    /*
+        VALIDASI
+    */
+
+    if (!noResi) {
+
+        alert(
+            "No Resi wajib diisi."
+        );
+
+        return;
 
     }
 
 
-    resiModal.hide();
+    if (!namaBarang) {
+
+        alert(
+            "Nama Barang wajib diisi."
+        );
+
+        return;
+
+    }
+
+
+    if (!jumlah || jumlah < 1) {
+
+        alert(
+            "Jumlah barang harus lebih dari 0."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        hargaSatuan < 0 ||
+        isNaN(hargaSatuan)
+    ) {
+
+        alert(
+            "Harga satuan tidak valid."
+        );
+
+        return;
+
+    }
+
+
+    if (!status) {
+
+        alert(
+            "Silakan pilih status."
+        );
+
+        return;
+
+    }
+
+
+    if (!tanggalDiterima) {
+
+        alert(
+            "Tanggal diterima wajib diisi."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        pengajuanBanding === "Ya" &&
+        !alasanPengajuan
+    ) {
+
+        alert(
+            "Silakan pilih alasan pengajuan."
+        );
+
+        return;
+
+    }
+
+
+    /*
+        OBJECT DATA
+    */
+
+    const newData = {
+
+        id:
+            editId
+                ? Number(editId)
+                : Date.now(),
+
+        noPesanan,
+
+        noResi,
+
+        status,
+
+        pengajuanBanding,
+
+        alasanPengajuan,
+
+        namaBarang,
+
+        kodeBarang,
+
+        variasi,
+
+        jumlah,
+
+        hargaSatuan,
+
+        tanggalDiterima,
+
+        keterangan
+
+    };
+
+
+    /*
+        EDIT
+    */
+
+    if (editId) {
+
+
+        const index =
+            returnData.findIndex(
+                item =>
+                    item.id ===
+                    Number(editId)
+            );
+
+
+        if (index !== -1) {
+
+            returnData[index] =
+                newData;
+
+        }
+
+
+    }
+
+    /*
+        TAMBAH
+    */
+
+    else {
+
+        returnData.push(
+            newData
+        );
+
+    }
+
+
+    /*
+        SIMPAN KE LOCAL STORAGE
+    */
+
+    saveStoredData(
+        returnData
+    );
+
+
+    /*
+        REFRESH
+    */
 
     renderTable();
 
     updateDashboard();
 
+
+    /*
+        TUTUP MODAL
+    */
+
+    const modalElement =
+        document.getElementById(
+            "returnModal"
+        );
+
+
+    const modal =
+        bootstrap.Modal
+            .getInstance(
+                modalElement
+            );
+
+
+    modal.hide();
+
+
+    alert(
+        editId
+            ? "Data berhasil diperbarui."
+            : "Data berhasil ditambahkan."
+    );
+
 }
 
 
-/**
- * Detail
- */
-function showDetail(id) {
+/* =====================================================
+   EDIT DATA
+===================================================== */
 
-    const item = resiData.find(
-        item => Number(item.id) === Number(id)
-    );
+function editData(id) {
+
+
+    const item =
+        returnData.find(
+            data =>
+                data.id === Number(id)
+        );
 
 
     if (!item) {
+
+        alert(
+            "Data tidak ditemukan."
+        );
+
         return;
+
     }
 
 
-    const content = document.getElementById(
-        "detailContent"
-    );
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
+        "Edit Data Return";
 
 
-    content.innerHTML = `
-
-        <div class="row g-3">
-
-            <div class="col-md-6">
-                <strong>Nomor Resi</strong>
-                <div>
-                    ${escapeHTML(item.nomorResi)}
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <strong>Jenis Kasus</strong>
-                <div>
-                    ${escapeHTML(item.jenisKasus)}
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <strong>Status</strong>
-                <div>
-                    ${getStatusBadge(item.status)}
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <strong>Jenis Banding</strong>
-                <div>
-                    ${escapeHTML(item.jenisBanding)}
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <strong>Tanggal Pengajuan</strong>
-                <div>
-                    ${formatDate(item.tanggalPengajuan)}
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <strong>Tanggal Selesai</strong>
-                <div>
-                    ${formatDate(item.tanggalSelesai)}
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <strong>Nama Barang</strong>
-                <div>
-                    ${escapeHTML(item.namaBarang)}
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <strong>Kode Barang</strong>
-                <div>
-                    ${escapeHTML(item.kodeBarang || "-")}
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <strong>Variasi Barang</strong>
-                <div>
-                    ${escapeHTML(item.variasiBarang || "-")}
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <strong>Jumlah</strong>
-                <div>
-                    ${item.jumlah}
-                </div>
-            </div>
-
-            <div class="col-12">
-
-                <strong>Catatan</strong>
-
-                <div class="border rounded p-3 mt-1 bg-light">
-
-                    ${escapeHTML(item.catatan || "Tidak ada catatan.")}
-
-                </div>
-
-            </div>
-
-        </div>
-
-    `;
+    document.getElementById(
+        "editId"
+    ).value =
+        item.id;
 
 
-    detailModal.show();
+    document.getElementById(
+        "noPesanan"
+    ).value =
+        item.noPesanan || "";
+
+
+    document.getElementById(
+        "noResi"
+    ).value =
+        item.noResi || "";
+
+
+    document.getElementById(
+        "namaBarang"
+    ).value =
+        item.namaBarang || "";
+
+
+    document.getElementById(
+        "kodeBarang"
+    ).value =
+        item.kodeBarang || "";
+
+
+    document.getElementById(
+        "variasi"
+    ).value =
+        item.variasi || "";
+
+
+    document.getElementById(
+        "jumlah"
+    ).value =
+        item.jumlah || 1;
+
+
+    document.getElementById(
+        "hargaSatuan"
+    ).value =
+        item.hargaSatuan || 0;
+
+
+    document.getElementById(
+        "status"
+    ).value =
+        item.status || "";
+
+
+    document.getElementById(
+        "pengajuanBanding"
+    ).value =
+        item.pengajuanBanding || "Tidak";
+
+
+    document.getElementById(
+        "tanggalDiterima"
+    ).value =
+        item.tanggalDiterima || "";
+
+
+    document.getElementById(
+        "keterangan"
+    ).value =
+        item.keterangan || "";
+
+
+    const alasan =
+        document.getElementById(
+            "alasanPengajuan"
+        );
+
+
+    if (
+        item.pengajuanBanding === "Ya"
+    ) {
+
+        alasan.disabled = false;
+
+        alasan.value =
+            item.alasanPengajuan || "";
+
+    } else {
+
+        alasan.disabled = true;
+
+        alasan.value = "";
+
+    }
+
+
+    /*
+        Buka modal
+    */
+
+    const modalElement =
+        document.getElementById(
+            "returnModal"
+        );
+
+
+    const modal =
+        new bootstrap.Modal(
+            modalElement
+        );
+
+
+    modal.show();
 
 }
 
 
-/**
- * Tanggal hari ini
- */
-function getToday() {
+/* =====================================================
+   DELETE DATA
+===================================================== */
 
-    const date = new Date();
-
-    const year = date.getFullYear();
-
-    const month =
-        String(date.getMonth() + 1)
-        .padStart(2, "0");
-
-    const day =
-        String(date.getDate())
-        .padStart(2, "0");
+function deleteData(id) {
 
 
-    return `${year}-${month}-${day}`;
+    const item =
+        returnData.find(
+            data =>
+                data.id === Number(id)
+        );
+
+
+    if (!item) {
+
+        return;
+
+    }
+
+
+    const confirmDelete =
+        confirm(
+            `Hapus data return ${item.noResi}?`
+        );
+
+
+    if (!confirmDelete) {
+
+        return;
+
+    }
+
+
+    returnData =
+        returnData.filter(
+            data =>
+                data.id !== Number(id)
+        );
+
+
+    saveStoredData(
+        returnData
+    );
+
+
+    renderTable();
+
+    updateDashboard();
+
+
+    alert(
+        "Data berhasil dihapus."
+    );
 
 }
