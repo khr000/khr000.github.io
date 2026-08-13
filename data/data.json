@@ -43,50 +43,5 @@
         "hargaSatuan": 450000,
         "tanggalDiterima": "2026-08-10",
         "keterangan": "Barang diterima dalam kondisi tidak sesuai."
-    },
-    {
-        "id": 4,
-        "noPesanan": "INV-2026-004",
-        "noResi": "SPXID777777777",
-        "status": "Diterima dengan Baik",
-        "pengajuanBanding": "Ya",
-        "alasanPengajuan": "Pengembalian Barang dan Dana",
-        "namaBarang": "JRP Cover Filter Udara",
-        "kodeBarang": "JRP-CFA-004",
-        "variasi": "Silver",
-        "jumlah": 2,
-        "hargaSatuan": 275000,
-        "tanggalDiterima": "2026-08-12",
-        "keterangan": "Barang kembali lengkap."
-    },
-    {
-        "id": 5,
-        "noPesanan": "",
-        "noResi": "SPXID888888888",
-        "status": "Diterima dengan Baik",
-        "pengajuanBanding": "Tidak",
-        "alasanPengajuan": "",
-        "namaBarang": "JRP Footstep RX King",
-        "kodeBarang": "JRP-FS-005",
-        "variasi": "Hitam",
-        "jumlah": 1,
-        "hargaSatuan": 400000,
-        "tanggalDiterima": "2026-07-15",
-        "keterangan": "Barang diterima dan kondisi masih baik."
-    },
-    {
-        "id": 6,
-        "noPesanan": "INV-2026-006",
-        "noResi": "SPXID999999999",
-        "status": "Diterima Tidak Baik",
-        "pengajuanBanding": "Ya",
-        "alasanPengajuan": "Pengembalian Barang dan Dana",
-        "namaBarang": "JRP Selang Rem Apexline",
-        "kodeBarang": "JRP-01093",
-        "variasi": "90cm",
-        "jumlah": 1,
-        "hargaSatuan": 185000,
-        "tanggalDiterima": "2026-07-20",
-        "keterangan": "Barang dikembalikan oleh pembeli."
     }
 ]
