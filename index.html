@@ -1,34 +1,56 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Return Management</title>
 
+
     <!-- Bootstrap -->
+
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
         rel="stylesheet"
     >
 
+
     <!-- Bootstrap Icons -->
+
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
         rel="stylesheet"
     >
 
+
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css">
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
 </head>
+
 
 <body>
 
+
 <div class="d-flex min-vh-100">
 
-    <!-- ================= SIDEBAR ================= -->
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
 
     <aside class="sidebar">
+
 
         <div class="sidebar-brand">
 
@@ -46,6 +68,7 @@
 
         <ul class="nav flex-column">
 
+
             <li class="nav-item">
 
                 <a
@@ -56,7 +79,9 @@
 
                     <i class="bi bi-speedometer2"></i>
 
-                    Dashboard
+                    <span>
+                        Dashboard
+                    </span>
 
                 </a>
 
@@ -73,18 +98,25 @@
 
                     <i class="bi bi-arrow-return-left"></i>
 
-                    Data Return
+                    <span>
+                        Data Return
+                    </span>
 
                 </a>
 
             </li>
 
+
         </ul>
+
 
     </aside>
 
 
-    <!-- ================= MAIN ================= -->
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
 
     <main class="main-content flex-grow-1">
 
@@ -102,8 +134,11 @@
                     Dashboard
                 </h5>
 
+
                 <small class="text-muted">
+
                     Monitoring Return & Pengiriman
+
                 </small>
 
             </div>
@@ -111,12 +146,17 @@
         </nav>
 
 
-        <!-- CONTENT -->
+
+        <!-- =================================================
+             CONTENT
+        ================================================== -->
 
         <div class="container-fluid p-4">
 
 
-            <!-- ================= DASHBOARD ================= -->
+            <!-- =================================================
+                 DASHBOARD
+            ================================================== -->
 
             <section id="dashboardSection">
 
@@ -127,13 +167,19 @@
 
                     <div class="card-body">
 
+
                         <div class="row align-items-end">
+
 
                             <div class="col-md-4">
 
+
                                 <label class="form-label fw-semibold">
+
                                     Periode
+
                                 </label>
+
 
                                 <input
                                     type="month"
@@ -141,28 +187,34 @@
                                     class="form-control"
                                 >
 
+
                             </div>
 
 
                             <div class="col-md-8">
 
+
                                 <div class="text-muted mt-3 mt-md-0">
 
-                                    Statistik akan menyesuaikan
-                                    tanggal return yang dipilih.
+                                    Statistik berdasarkan
+                                    tanggal diterima.
 
                                 </div>
 
+
                             </div>
 
+
                         </div>
+
 
                     </div>
 
                 </div>
 
 
-                <!-- STATISTIC -->
+
+                <!-- STATISTICS -->
 
                 <div class="row g-3 mb-4">
 
@@ -173,11 +225,13 @@
 
                         <div class="stat-card">
 
+
                             <div>
 
                                 <div class="stat-title">
                                     Total Return
                                 </div>
+
 
                                 <div
                                     class="stat-value"
@@ -188,13 +242,18 @@
 
                             </div>
 
+
                             <div class="stat-icon">
+
                                 <i class="bi bi-box-arrow-in-left"></i>
+
                             </div>
+
 
                         </div>
 
                     </div>
+
 
 
                     <!-- TOTAL BARANG -->
@@ -203,11 +262,13 @@
 
                         <div class="stat-card">
 
+
                             <div>
 
                                 <div class="stat-title">
                                     Total Barang
                                 </div>
+
 
                                 <div
                                     class="stat-value"
@@ -218,26 +279,33 @@
 
                             </div>
 
+
                             <div class="stat-icon">
+
                                 <i class="bi bi-boxes"></i>
+
                             </div>
+
 
                         </div>
 
                     </div>
 
 
-                    <!-- DITERIMA BAIK -->
+
+                    <!-- BAIK -->
 
                     <div class="col-xl-3 col-md-6">
 
                         <div class="stat-card">
+
 
                             <div>
 
                                 <div class="stat-title">
                                     Diterima Baik
                                 </div>
+
 
                                 <div
                                     class="stat-value text-success"
@@ -248,26 +316,33 @@
 
                             </div>
 
+
                             <div class="stat-icon text-success">
+
                                 <i class="bi bi-check-circle"></i>
+
                             </div>
+
 
                         </div>
 
                     </div>
 
 
-                    <!-- DITERIMA TIDAK BAIK -->
+
+                    <!-- TIDAK BAIK -->
 
                     <div class="col-xl-3 col-md-6">
 
                         <div class="stat-card">
+
 
                             <div>
 
                                 <div class="stat-title">
                                     Diterima Tidak Baik
                                 </div>
+
 
                                 <div
                                     class="stat-value text-danger"
@@ -278,13 +353,18 @@
 
                             </div>
 
+
                             <div class="stat-icon text-danger">
+
                                 <i class="bi bi-x-circle"></i>
+
                             </div>
+
 
                         </div>
 
                     </div>
+
 
 
                     <!-- BANDING -->
@@ -293,11 +373,13 @@
 
                         <div class="stat-card">
 
+
                             <div>
 
                                 <div class="stat-title">
                                     Pengajuan Banding
                                 </div>
+
 
                                 <div
                                     class="stat-value text-warning"
@@ -308,26 +390,33 @@
 
                             </div>
 
+
                             <div class="stat-icon text-warning">
+
                                 <i class="bi bi-exclamation-triangle"></i>
+
                             </div>
+
 
                         </div>
 
                     </div>
 
 
-                    <!-- PENGIRIMAN GAGAL -->
+
+                    <!-- GAGAL -->
 
                     <div class="col-xl-3 col-md-6">
 
                         <div class="stat-card">
+
 
                             <div>
 
                                 <div class="stat-title">
                                     Pengiriman Gagal
                                 </div>
+
 
                                 <div
                                     class="stat-value"
@@ -338,13 +427,18 @@
 
                             </div>
 
+
                             <div class="stat-icon">
+
                                 <i class="bi bi-truck"></i>
+
                             </div>
+
 
                         </div>
 
                     </div>
+
 
 
                     <!-- BARANG DAN DANA -->
@@ -353,11 +447,13 @@
 
                         <div class="stat-card">
 
+
                             <div>
 
                                 <div class="stat-title">
                                     Pengembalian Barang & Dana
                                 </div>
+
 
                                 <div
                                     class="stat-value"
@@ -368,26 +464,33 @@
 
                             </div>
 
+
                             <div class="stat-icon">
+
                                 <i class="bi bi-cash-stack"></i>
+
                             </div>
+
 
                         </div>
 
                     </div>
 
 
-                    <!-- TOTAL NILAI -->
+
+                    <!-- NILAI RETURN -->
 
                     <div class="col-xl-3 col-md-6">
 
                         <div class="stat-card">
+
 
                             <div>
 
                                 <div class="stat-title">
                                     Nilai Return
                                 </div>
+
 
                                 <div
                                     class="stat-value currency"
@@ -398,20 +501,27 @@
 
                             </div>
 
+
                             <div class="stat-icon">
+
                                 <i class="bi bi-wallet2"></i>
+
                             </div>
+
 
                         </div>
 
                     </div>
 
+
                 </div>
+
 
 
                 <!-- RINGKASAN -->
 
                 <div class="card border-0 shadow-sm">
+
 
                     <div class="card-header bg-white">
 
@@ -424,17 +534,23 @@
 
                     <div class="card-body">
 
-                        <div class="row">
+
+                        <div class="row g-3">
+
 
                             <div class="col-md-4">
 
                                 <div class="summary-box">
 
                                     <span>
-                                        Pulangkan Kondisi Seperti Awal
+                                        Pulangkan Kondisi
+                                        Seperti Awal
                                     </span>
 
-                                    <strong id="totalKondisiAwal">
+
+                                    <strong
+                                        id="totalKondisiAwal"
+                                    >
                                         0
                                     </strong>
 
@@ -443,21 +559,27 @@
                             </div>
 
 
+
                             <div class="col-md-4">
 
                                 <div class="summary-box">
 
                                     <span>
-                                        Pengembalian Barang dan Dana
+                                        Pengembalian
+                                        Barang dan Dana
                                     </span>
 
-                                    <strong id="totalRefund">
+
+                                    <strong
+                                        id="totalRefund"
+                                    >
                                         0
                                     </strong>
 
                                 </div>
 
                             </div>
+
 
 
                             <div class="col-md-4">
@@ -468,7 +590,10 @@
                                         Pengiriman Gagal
                                     </span>
 
-                                    <strong id="totalPengirimanGagal">
+
+                                    <strong
+                                        id="totalPengirimanGagal"
+                                    >
                                         0
                                     </strong>
 
@@ -476,16 +601,23 @@
 
                             </div>
 
+
                         </div>
+
 
                     </div>
 
+
                 </div>
+
 
             </section>
 
 
-            <!-- ================= DATA RETURN ================= -->
+
+            <!-- =================================================
+                 DATA RETURN
+            ================================================== -->
 
             <section
                 id="dataReturnSection"
@@ -493,7 +625,11 @@
             >
 
 
-                <div class="d-flex justify-content-between align-items-center mb-4">
+                <div
+                    class="d-flex justify-content-between
+                    align-items-center mb-4"
+                >
+
 
                     <div>
 
@@ -501,14 +637,38 @@
                             Data Return
                         </h4>
 
+
                         <small class="text-muted">
+
                             Data return barang yang telah diterima
+
                         </small>
 
                     </div>
 
 
+
                     <div class="d-flex gap-2">
+
+
+                        <!-- TAMBAH -->
+
+                        <button
+                            class="btn btn-primary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#returnModal"
+                            onclick="prepareAddForm()"
+                        >
+
+                            <i class="bi bi-plus-lg"></i>
+
+                            Tambah Data
+
+                        </button>
+
+
+
+                        <!-- EXCEL -->
 
                         <button
                             class="btn btn-success"
@@ -517,10 +677,13 @@
 
                             <i class="bi bi-file-earmark-excel"></i>
 
-                            Export Excel
+                            Excel
 
                         </button>
 
+
+
+                        <!-- PRINT -->
 
                         <button
                             class="btn btn-dark"
@@ -533,16 +696,24 @@
 
                         </button>
 
+
                     </div>
+
 
                 </div>
 
 
+
                 <!-- FILTER -->
 
-                <div class="card border-0 shadow-sm mb-3 no-print">
+                <div
+                    class="card border-0 shadow-sm
+                    mb-3 no-print"
+                >
+
 
                     <div class="card-body">
+
 
                         <div class="row g-3">
 
@@ -551,9 +722,13 @@
 
                             <div class="col-lg-4">
 
+
                                 <label class="form-label">
+
                                     Search
+
                                 </label>
+
 
                                 <input
                                     type="text"
@@ -562,123 +737,165 @@
                                     placeholder="Cari pesanan, resi, barang..."
                                 >
 
+
                             </div>
+
 
 
                             <!-- STATUS -->
 
                             <div class="col-lg-2">
 
+
                                 <label class="form-label">
+
                                     Status
+
                                 </label>
+
 
                                 <select
                                     id="statusFilter"
                                     class="form-select"
                                 >
 
+
                                     <option value="">
                                         Semua
                                     </option>
+
 
                                     <option value="Diterima dengan Baik">
                                         Diterima dengan Baik
                                     </option>
 
+
                                     <option value="Diterima Tidak Baik">
                                         Diterima Tidak Baik
                                     </option>
 
+
                                 </select>
 
+
                             </div>
+
 
 
                             <!-- BANDING -->
 
                             <div class="col-lg-2">
 
+
                                 <label class="form-label">
+
                                     Banding
+
                                 </label>
+
 
                                 <select
                                     id="bandingFilter"
                                     class="form-select"
                                 >
 
+
                                     <option value="">
                                         Semua
                                     </option>
+
 
                                     <option value="Ya">
                                         Ya
                                     </option>
 
+
                                     <option value="Tidak">
                                         Tidak
                                     </option>
 
+
                                 </select>
 
+
                             </div>
+
 
 
                             <!-- ALASAN -->
 
                             <div class="col-lg-4">
 
+
                                 <label class="form-label">
+
                                     Alasan Pengajuan
+
                                 </label>
+
 
                                 <select
                                     id="alasanFilter"
                                     class="form-select"
                                 >
 
+
                                     <option value="">
                                         Semua
                                     </option>
+
 
                                     <option value="Pengiriman Gagal">
                                         Pengiriman Gagal
                                     </option>
 
+
                                     <option value="Pulangkan Kondisi Seperti Awal">
                                         Pulangkan Kondisi Seperti Awal
                                     </option>
+
 
                                     <option value="Pengembalian Barang dan Dana">
                                         Pengembalian Barang dan Dana
                                     </option>
 
+
                                 </select>
+
 
                             </div>
 
+
                         </div>
+
 
                     </div>
 
+
                 </div>
+
 
 
                 <!-- TABLE -->
 
                 <div class="card border-0 shadow-sm">
 
+
                     <div class="card-body">
+
 
                         <div class="table-responsive">
 
+
                             <table
-                                class="table table-bordered table-hover align-middle"
+                                class="table table-bordered
+                                table-hover align-middle"
                                 id="returnTable"
                             >
 
+
                                 <thead class="table-dark">
+
 
                                     <tr>
 
@@ -706,32 +923,514 @@
 
                                         <th>Total</th>
 
-                                        <th>Tanggal Diterima</th>
+                                        <th>Tanggal</th>
 
                                         <th>Keterangan</th>
 
+                                        <th>Aksi</th>
+
                                     </tr>
+
 
                                 </thead>
 
 
-                                <tbody id="returnTableBody"></tbody>
+                                <tbody
+                                    id="returnTableBody"
+                                ></tbody>
+
 
                             </table>
 
+
                         </div>
+
 
                     </div>
 
+
                 </div>
+
 
             </section>
 
+
         </div>
+
 
     </main>
 
+
 </div>
+
+
+
+<!-- =========================================================
+     MODAL TAMBAH / EDIT DATA
+========================================================== -->
+
+<div
+    class="modal fade"
+    id="returnModal"
+    tabindex="-1"
+>
+
+
+    <div
+        class="modal-dialog modal-xl modal-dialog-scrollable"
+    >
+
+
+        <div class="modal-content">
+
+
+            <div class="modal-header">
+
+
+                <h5
+                    class="modal-title"
+                    id="modalTitle"
+                >
+
+                    Tambah Data Return
+
+                </h5>
+
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                ></button>
+
+
+            </div>
+
+
+
+            <form id="returnForm">
+
+
+                <div class="modal-body">
+
+
+                    <input
+                        type="hidden"
+                        id="editId"
+                    >
+
+
+                    <div class="row g-3">
+
+
+                        <!-- NO PESANAN -->
+
+                        <div class="col-md-6">
+
+
+                            <label class="form-label">
+
+                                No Pesanan
+
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="noPesanan"
+                                class="form-control"
+                                placeholder="Boleh dikosongkan"
+                            >
+
+
+                            <small class="text-muted">
+
+                                Opsional
+
+                            </small>
+
+
+                        </div>
+
+
+
+                        <!-- NO RESI -->
+
+                        <div class="col-md-6">
+
+
+                            <label class="form-label">
+
+                                No Resi
+                                <span class="text-danger">*</span>
+
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="noResi"
+                                class="form-control"
+                                required
+                            >
+
+
+                        </div>
+
+
+
+                        <!-- NAMA BARANG -->
+
+                        <div class="col-md-6">
+
+
+                            <label class="form-label">
+
+                                Nama Barang
+                                <span class="text-danger">*</span>
+
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="namaBarang"
+                                class="form-control"
+                                required
+                            >
+
+
+                        </div>
+
+
+
+                        <!-- KODE -->
+
+                        <div class="col-md-3">
+
+
+                            <label class="form-label">
+
+                                Kode Barang
+
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="kodeBarang"
+                                class="form-control"
+                            >
+
+
+                        </div>
+
+
+
+                        <!-- VARIASI -->
+
+                        <div class="col-md-3">
+
+
+                            <label class="form-label">
+
+                                Variasi
+
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="variasi"
+                                class="form-control"
+                            >
+
+
+                        </div>
+
+
+
+                        <!-- JUMLAH -->
+
+                        <div class="col-md-3">
+
+
+                            <label class="form-label">
+
+                                Jumlah
+                                <span class="text-danger">*</span>
+
+                            </label>
+
+
+                            <input
+                                type="number"
+                                id="jumlah"
+                                class="form-control"
+                                min="1"
+                                value="1"
+                                required
+                            >
+
+
+                        </div>
+
+
+
+                        <!-- HARGA -->
+
+                        <div class="col-md-3">
+
+
+                            <label class="form-label">
+
+                                Harga Satuan
+                                <span class="text-danger">*</span>
+
+                            </label>
+
+
+                            <input
+                                type="number"
+                                id="hargaSatuan"
+                                class="form-control"
+                                min="0"
+                                required
+                            >
+
+
+                        </div>
+
+
+
+                        <!-- STATUS -->
+
+                        <div class="col-md-3">
+
+
+                            <label class="form-label">
+
+                                Status
+                                <span class="text-danger">*</span>
+
+                            </label>
+
+
+                            <select
+                                id="status"
+                                class="form-select"
+                                required
+                            >
+
+
+                                <option value="">
+                                    Pilih Status
+                                </option>
+
+
+                                <option value="Diterima dengan Baik">
+
+                                    Diterima dengan Baik
+
+                                </option>
+
+
+                                <option value="Diterima Tidak Baik">
+
+                                    Diterima Tidak Baik
+
+                                </option>
+
+
+                            </select>
+
+
+                        </div>
+
+
+
+                        <!-- BANDING -->
+
+                        <div class="col-md-3">
+
+
+                            <label class="form-label">
+
+                                Pengajuan Banding
+
+                            </label>
+
+
+                            <select
+                                id="pengajuanBanding"
+                                class="form-select"
+                            >
+
+
+                                <option value="Tidak">
+                                    Tidak
+                                </option>
+
+
+                                <option value="Ya">
+                                    Ya
+                                </option>
+
+
+                            </select>
+
+
+                        </div>
+
+
+
+                        <!-- ALASAN -->
+
+                        <div class="col-md-6">
+
+
+                            <label class="form-label">
+
+                                Alasan Pengajuan
+
+                            </label>
+
+
+                            <select
+                                id="alasanPengajuan"
+                                class="form-select"
+                                disabled
+                            >
+
+
+                                <option value="">
+                                    Pilih Alasan
+                                </option>
+
+
+                                <option value="Pengiriman Gagal">
+
+                                    Pengiriman Gagal
+
+                                </option>
+
+
+                                <option value="Pulangkan Kondisi Seperti Awal">
+
+                                    Pulangkan Kondisi Seperti Awal
+
+                                </option>
+
+
+                                <option value="Pengembalian Barang dan Dana">
+
+                                    Pengembalian Barang dan Dana
+
+                                </option>
+
+
+                            </select>
+
+
+                        </div>
+
+
+
+                        <!-- TANGGAL -->
+
+                        <div class="col-md-4">
+
+
+                            <label class="form-label">
+
+                                Tanggal Diterima
+                                <span class="text-danger">*</span>
+
+                            </label>
+
+
+                            <input
+                                type="date"
+                                id="tanggalDiterima"
+                                class="form-control"
+                                required
+                            >
+
+
+                        </div>
+
+
+
+                        <!-- KETERANGAN -->
+
+                        <div class="col-md-8">
+
+
+                            <label class="form-label">
+
+                                Keterangan
+
+                            </label>
+
+
+                            <textarea
+                                id="keterangan"
+                                class="form-control"
+                                rows="3"
+                                placeholder="Tambahkan keterangan..."
+                            ></textarea>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="modal-footer">
+
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                    >
+
+                        Batal
+
+                    </button>
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+
+                        <i class="bi bi-save"></i>
+
+                        Simpan Data
+
+                    </button>
+
+
+                </div>
+
+
+            </form>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
 
 
 <!-- Bootstrap -->
@@ -741,19 +1440,30 @@
 </script>
 
 
-<!-- SheetJS -->
+
+<!-- SheetJS Excel -->
 
 <script
     src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js">
 </script>
 
 
+
 <!-- JavaScript -->
 
+<script src="js/storage.js"></script>
+
 <script src="js/dashboard.js"></script>
+
 <script src="js/table.js"></script>
+
+<script src="js/form.js"></script>
+
 <script src="js/export.js"></script>
+
 <script src="js/app.js"></script>
 
+
 </body>
+
 </html>
