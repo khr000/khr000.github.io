@@ -1,101 +1,112 @@
 function renderTable() {
 
     const tbody =
-        document.getElementById("returnTableBody");
+        document.getElementById(
+            "returnTableBody"
+        );
 
 
     const search =
         document
-            .getElementById("searchInput")
+            .getElementById(
+                "searchInput"
+            )
             .value
             .toLowerCase();
 
 
     const status =
-        document.getElementById("statusFilter").value;
+        document.getElementById(
+            "statusFilter"
+        ).value;
 
 
     const banding =
-        document.getElementById("bandingFilter").value;
+        document.getElementById(
+            "bandingFilter"
+        ).value;
 
 
     const alasan =
-        document.getElementById("alasanFilter").value;
+        document.getElementById(
+            "alasanFilter"
+        ).value;
 
 
     /*
-        FILTER DATA
+        FILTER
     */
 
     const filteredData =
-        returnData.filter(item => {
+        returnData.filter(
+            item => {
 
 
-            const searchableText = `
+                const searchableText = `
 
-                ${item.noPesanan}
+                    ${item.noPesanan || ""}
 
-                ${item.noResi}
+                    ${item.noResi || ""}
 
-                ${item.namaBarang}
+                    ${item.namaBarang || ""}
 
-                ${item.kodeBarang}
+                    ${item.kodeBarang || ""}
 
-                ${item.variasi}
+                    ${item.variasi || ""}
 
-                ${item.keterangan}
+                    ${item.keterangan || ""}
 
-            `.toLowerCase();
-
-
-            const matchSearch =
-                searchableText.includes(search);
+                `.toLowerCase();
 
 
-            const matchStatus =
-                !status ||
-                item.status === status;
+                const matchSearch =
+                    searchableText
+                        .includes(search);
 
 
-            const matchBanding =
-                !banding ||
-                item.pengajuanBanding === banding;
+                const matchStatus =
+                    !status ||
+                    item.status === status;
 
 
-            const matchAlasan =
-                !alasan ||
-                item.alasanPengajuan === alasan;
+                const matchBanding =
+                    !banding ||
+                    item.pengajuanBanding === banding;
 
 
-            return (
-                matchSearch &&
-                matchStatus &&
-                matchBanding &&
-                matchAlasan
-            );
-
-        });
+                const matchAlasan =
+                    !alasan ||
+                    item.alasanPengajuan === alasan;
 
 
-    /*
-        RESET TABLE
-    */
+                return (
+                    matchSearch &&
+                    matchStatus &&
+                    matchBanding &&
+                    matchAlasan
+                );
+
+            }
+        );
+
 
     tbody.innerHTML = "";
 
 
     /*
-        TIDAK ADA DATA
+        KOSONG
     */
 
-    if (filteredData.length === 0) {
+    if (
+        filteredData.length === 0
+    ) {
 
         tbody.innerHTML = `
 
             <tr>
 
                 <td
-                    colspan="14"
+                    colspan="15"
                     class="text-center py-5"
                 >
 
@@ -103,7 +114,7 @@ function renderTable() {
                         class="bi bi-inbox fs-2 d-block mb-2"
                     ></i>
 
-                    Tidak ada data yang ditemukan.
+                    Tidak ada data.
 
                 </td>
 
@@ -117,7 +128,7 @@ function renderTable() {
 
 
     /*
-        RENDER DATA
+        RENDER
     */
 
     filteredData.forEach(
@@ -130,7 +141,9 @@ function renderTable() {
 
 
             const row =
-                document.createElement("tr");
+                document.createElement(
+                    "tr"
+                );
 
 
             row.innerHTML = `
@@ -144,8 +157,14 @@ function renderTable() {
 
                     ${
                         item.noPesanan
-                        ? escapeHTML(item.noPesanan)
-                        : '<span class="text-muted">-</span>'
+                        ? escapeHTML(
+                            item.noPesanan
+                        )
+                        : `
+                            <span class="text-muted">
+                                -
+                            </span>
+                        `
                     }
 
                 </td>
@@ -154,7 +173,11 @@ function renderTable() {
                 <td>
 
                     <strong>
-                        ${escapeHTML(item.noResi)}
+
+                        ${escapeHTML(
+                            item.noResi
+                        )}
+
                     </strong>
 
                 </td>
@@ -162,7 +185,9 @@ function renderTable() {
 
                 <td>
 
-                    ${getStatusBadge(item.status)}
+                    ${getStatusBadge(
+                        item.status
+                    )}
 
                 </td>
 
@@ -192,8 +217,14 @@ function renderTable() {
 
                     ${
                         item.alasanPengajuan
-                        ? escapeHTML(item.alasanPengajuan)
-                        : '<span class="text-muted">-</span>'
+                        ? escapeHTML(
+                            item.alasanPengajuan
+                        )
+                        : `
+                            <span class="text-muted">
+                                -
+                            </span>
+                        `
                     }
 
                 </td>
@@ -201,21 +232,27 @@ function renderTable() {
 
                 <td>
 
-                    ${escapeHTML(item.namaBarang)}
+                    ${escapeHTML(
+                        item.namaBarang
+                    )}
 
                 </td>
 
 
                 <td>
 
-                    ${escapeHTML(item.kodeBarang || "-")}
+                    ${escapeHTML(
+                        item.kodeBarang || "-"
+                    )}
 
                 </td>
 
 
                 <td>
 
-                    ${escapeHTML(item.variasi || "-")}
+                    ${escapeHTML(
+                        item.variasi || "-"
+                    )}
 
                 </td>
 
@@ -229,7 +266,9 @@ function renderTable() {
 
                 <td>
 
-                    ${formatRupiah(item.hargaSatuan)}
+                    ${formatRupiah(
+                        item.hargaSatuan
+                    )}
 
                 </td>
 
@@ -238,7 +277,9 @@ function renderTable() {
 
                     <strong>
 
-                        ${formatRupiah(totalHarga)}
+                        ${formatRupiah(
+                            totalHarga
+                        )}
 
                     </strong>
 
@@ -247,14 +288,52 @@ function renderTable() {
 
                 <td>
 
-                    ${formatDate(item.tanggalDiterima)}
+                    ${formatDate(
+                        item.tanggalDiterima
+                    )}
 
                 </td>
 
 
                 <td>
 
-                    ${escapeHTML(item.keterangan || "-")}
+                    ${escapeHTML(
+                        item.keterangan || "-"
+                    )}
+
+                </td>
+
+
+                <td>
+
+                    <div
+                        class="d-flex gap-1"
+                    >
+
+
+                        <button
+                            class="btn btn-sm btn-outline-primary"
+                            onclick="editData(${item.id})"
+                            title="Edit"
+                        >
+
+                            <i class="bi bi-pencil"></i>
+
+                        </button>
+
+
+                        <button
+                            class="btn btn-sm btn-outline-danger"
+                            onclick="deleteData(${item.id})"
+                            title="Hapus"
+                        >
+
+                            <i class="bi bi-trash"></i>
+
+                        </button>
+
+
+                    </div>
 
                 </td>
 
@@ -269,17 +348,23 @@ function renderTable() {
 }
 
 
-/* ================= STATUS BADGE ================= */
+/* =====================================================
+   STATUS BADGE
+===================================================== */
 
 function getStatusBadge(status) {
 
+
     if (
-        status === "Diterima dengan Baik"
+        status ===
+        "Diterima dengan Baik"
     ) {
 
         return `
 
-            <span class="badge badge-custom status-good">
+            <span
+                class="badge badge-custom status-good"
+            >
 
                 <i class="bi bi-check-circle"></i>
 
@@ -293,12 +378,15 @@ function getStatusBadge(status) {
 
 
     if (
-        status === "Diterima Tidak Baik"
+        status ===
+        "Diterima Tidak Baik"
     ) {
 
         return `
 
-            <span class="badge badge-custom status-bad">
+            <span
+                class="badge badge-custom status-bad"
+            >
 
                 <i class="bi bi-x-circle"></i>
 
