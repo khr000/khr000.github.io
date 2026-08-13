@@ -1,84 +1,117 @@
 function updateDashboard() {
 
+
     const month =
-        document.getElementById("monthFilter").value;
+        document.getElementById(
+            "monthFilter"
+        ).value;
 
 
-    let filteredData = returnData;
+    let filteredData =
+        returnData;
 
 
     /*
-        Filter berdasarkan bulan
+        FILTER BULAN
     */
 
     if (month) {
 
+
         filteredData =
-            returnData.filter(item => {
+            returnData.filter(
+                item => {
 
-                return item.tanggalDiterima.startsWith(month);
 
-            });
+                    return (
+                        item.tanggalDiterima &&
+                        item.tanggalDiterima
+                            .startsWith(month)
+                    );
+
+                }
+            );
 
     }
 
 
-    /* ================= TOTAL RETURN ================= */
+    /*
+        TOTAL RETURN
+    */
 
     const totalReturn =
         filteredData.length;
 
 
-    /* ================= TOTAL BARANG ================= */
+    /*
+        TOTAL BARANG
+    */
 
     const totalBarang =
         filteredData.reduce(
             (total, item) => {
 
-                return total + Number(item.jumlah);
+                return (
+                    total +
+                    Number(item.jumlah || 0)
+                );
 
             },
             0
         );
 
 
-    /* ================= DITERIMA BAIK ================= */
+    /*
+        BAIK
+    */
 
     const totalBaik =
         filteredData.filter(
             item =>
-                item.status === "Diterima dengan Baik"
+                item.status ===
+                "Diterima dengan Baik"
         ).length;
 
 
-    /* ================= DITERIMA TIDAK BAIK ================= */
+    /*
+        TIDAK BAIK
+    */
 
     const totalTidakBaik =
         filteredData.filter(
             item =>
-                item.status === "Diterima Tidak Baik"
+                item.status ===
+                "Diterima Tidak Baik"
         ).length;
 
 
-    /* ================= TOTAL BANDING ================= */
+    /*
+        BANDING
+    */
 
     const totalBanding =
         filteredData.filter(
             item =>
-                item.pengajuanBanding === "Ya"
+                item.pengajuanBanding ===
+                "Ya"
         ).length;
 
 
-    /* ================= PENGIRIMAN GAGAL ================= */
+    /*
+        GAGAL
+    */
 
     const totalGagal =
         filteredData.filter(
             item =>
-                item.alasanPengajuan === "Pengiriman Gagal"
+                item.alasanPengajuan ===
+                "Pengiriman Gagal"
         ).length;
 
 
-    /* ================= BARANG DAN DANA ================= */
+    /*
+        BARANG DAN DANA
+    */
 
     const totalBarangDana =
         filteredData.filter(
@@ -88,7 +121,9 @@ function updateDashboard() {
         ).length;
 
 
-    /* ================= KONDISI AWAL ================= */
+    /*
+        KONDISI AWAL
+    */
 
     const totalKondisiAwal =
         filteredData.filter(
@@ -98,20 +133,28 @@ function updateDashboard() {
         ).length;
 
 
-    /* ================= NILAI RETURN ================= */
+    /*
+        TOTAL NILAI
+    */
 
     const totalNilai =
         filteredData.reduce(
             (total, item) => {
 
+
                 const jumlah =
-                    Number(item.jumlah) || 0;
+                    Number(item.jumlah || 0);
+
 
                 const harga =
-                    Number(item.hargaSatuan) || 0;
+                    Number(
+                        item.hargaSatuan || 0
+                    );
 
-                return total + (
-                    jumlah * harga
+
+                return (
+                    total +
+                    (jumlah * harga)
                 );
 
             },
@@ -119,49 +162,75 @@ function updateDashboard() {
         );
 
 
-    /* ================= TAMPILKAN ================= */
+    /*
+        TAMPILKAN
+    */
 
-    document.getElementById("totalReturn").textContent =
+    document.getElementById(
+        "totalReturn"
+    ).textContent =
         totalReturn;
 
 
-    document.getElementById("totalBarang").textContent =
+    document.getElementById(
+        "totalBarang"
+    ).textContent =
         totalBarang;
 
 
-    document.getElementById("totalBaik").textContent =
+    document.getElementById(
+        "totalBaik"
+    ).textContent =
         totalBaik;
 
 
-    document.getElementById("totalTidakBaik").textContent =
+    document.getElementById(
+        "totalTidakBaik"
+    ).textContent =
         totalTidakBaik;
 
 
-    document.getElementById("totalBanding").textContent =
+    document.getElementById(
+        "totalBanding"
+    ).textContent =
         totalBanding;
 
 
-    document.getElementById("totalGagal").textContent =
+    document.getElementById(
+        "totalGagal"
+    ).textContent =
         totalGagal;
 
 
-    document.getElementById("totalBarangDana").textContent =
+    document.getElementById(
+        "totalBarangDana"
+    ).textContent =
         totalBarangDana;
 
 
-    document.getElementById("totalNilai").textContent =
-        formatRupiah(totalNilai);
+    document.getElementById(
+        "totalNilai"
+    ).textContent =
+        formatRupiah(
+            totalNilai
+        );
 
 
-    document.getElementById("totalKondisiAwal").textContent =
+    document.getElementById(
+        "totalKondisiAwal"
+    ).textContent =
         totalKondisiAwal;
 
 
-    document.getElementById("totalRefund").textContent =
+    document.getElementById(
+        "totalRefund"
+    ).textContent =
         totalBarangDana;
 
 
-    document.getElementById("totalPengirimanGagal").textContent =
+    document.getElementById(
+        "totalPengirimanGagal"
+    ).textContent =
         totalGagal;
 
 }
