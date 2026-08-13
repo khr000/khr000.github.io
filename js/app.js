@@ -1,146 +1,205 @@
 let returnData = [];
 
 
-/* ================= INITIALIZE ================= */
+/* =====================================================
+   INITIALIZE
+===================================================== */
 
-document.addEventListener("DOMContentLoaded", async () => {
-
-    await loadData();
-
-    setupNavigation();
-
-    setupFilter();
-
-    setupMonthFilter();
-
-    renderTable();
-
-    updateDashboard();
-
-});
+document.addEventListener(
+    "DOMContentLoaded",
+    async () => {
 
 
-/* ================= LOAD JSON ================= */
+        /*
+            Ambil data dari localStorage.
 
-async function loadData() {
+            Kalau belum ada,
+            otomatis mengambil data.json.
+        */
 
-    try {
+        returnData =
+            await initializeStorage();
 
-        const response = await fetch("data/data.json");
 
-        if (!response.ok) {
-            throw new Error("Data JSON tidak ditemukan.");
-        }
+        setupNavigation();
 
-        returnData = await response.json();
+        setupFilter();
 
-    } catch (error) {
+        setupMonthFilter();
 
-        console.error(error);
+        setupFormEvents();
 
-        alert(
-            "Gagal membaca data.json. Pastikan website dijalankan menggunakan Live Server atau GitHub Pages."
-        );
+        renderTable();
 
-        returnData = [];
+        updateDashboard();
+
 
     }
+);
 
-}
 
-
-/* ================= NAVIGATION ================= */
+/* =====================================================
+   NAVIGATION
+===================================================== */
 
 function setupNavigation() {
 
     const dashboardSection =
-        document.getElementById("dashboardSection");
+        document.getElementById(
+            "dashboardSection"
+        );
+
 
     const dataReturnSection =
-        document.getElementById("dataReturnSection");
+        document.getElementById(
+            "dataReturnSection"
+        );
 
 
     const menuDashboard =
-        document.getElementById("menuDashboard");
+        document.getElementById(
+            "menuDashboard"
+        );
+
 
     const menuDataReturn =
-        document.getElementById("menuDataReturn");
+        document.getElementById(
+            "menuDataReturn"
+        );
 
 
-    menuDashboard.addEventListener("click", function (event) {
-
-        event.preventDefault();
-
-        dashboardSection.classList.remove("d-none");
-
-        dataReturnSection.classList.add("d-none");
-
-        menuDashboard.classList.add("active");
-
-        menuDataReturn.classList.remove("active");
-
-        document.getElementById("pageTitle").textContent =
-            "Dashboard";
-
-        updateDashboard();
-
-    });
+    menuDashboard.addEventListener(
+        "click",
+        function (event) {
 
 
-    menuDataReturn.addEventListener("click", function (event) {
+            event.preventDefault();
 
-        event.preventDefault();
 
-        dashboardSection.classList.add("d-none");
+            dashboardSection
+                .classList
+                .remove("d-none");
 
-        dataReturnSection.classList.remove("d-none");
 
-        menuDashboard.classList.remove("active");
+            dataReturnSection
+                .classList
+                .add("d-none");
 
-        menuDataReturn.classList.add("active");
 
-        document.getElementById("pageTitle").textContent =
-            "Data Return";
+            menuDashboard
+                .classList
+                .add("active");
 
-        renderTable();
 
-    });
+            menuDataReturn
+                .classList
+                .remove("active");
+
+
+            document.getElementById(
+                "pageTitle"
+            ).textContent = "Dashboard";
+
+
+            updateDashboard();
+
+        }
+    );
+
+
+    menuDataReturn.addEventListener(
+        "click",
+        function (event) {
+
+
+            event.preventDefault();
+
+
+            dashboardSection
+                .classList
+                .add("d-none");
+
+
+            dataReturnSection
+                .classList
+                .remove("d-none");
+
+
+            menuDashboard
+                .classList
+                .remove("active");
+
+
+            menuDataReturn
+                .classList
+                .add("active");
+
+
+            document.getElementById(
+                "pageTitle"
+            ).textContent = "Data Return";
+
+
+            renderTable();
+
+        }
+    );
 
 }
 
 
-/* ================= FILTER ================= */
+/* =====================================================
+   FILTER
+===================================================== */
 
 function setupFilter() {
 
+
     document
         .getElementById("searchInput")
-        .addEventListener("input", renderTable);
+        .addEventListener(
+            "input",
+            renderTable
+        );
 
 
     document
         .getElementById("statusFilter")
-        .addEventListener("change", renderTable);
+        .addEventListener(
+            "change",
+            renderTable
+        );
 
 
     document
         .getElementById("bandingFilter")
-        .addEventListener("change", renderTable);
+        .addEventListener(
+            "change",
+            renderTable
+        );
 
 
     document
         .getElementById("alasanFilter")
-        .addEventListener("change", renderTable);
+        .addEventListener(
+            "change",
+            renderTable
+        );
 
 }
 
 
-/* ================= MONTH FILTER ================= */
+/* =====================================================
+   FILTER BULAN
+===================================================== */
 
 function setupMonthFilter() {
 
+
     const monthFilter =
-        document.getElementById("monthFilter");
+        document.getElementById(
+            "monthFilter"
+        );
 
 
     monthFilter.addEventListener(
@@ -149,18 +208,18 @@ function setupMonthFilter() {
     );
 
 
-    /*
-        Default bulan sekarang
-    */
+    const now =
+        new Date();
 
-    const now = new Date();
 
     const year =
         now.getFullYear();
 
+
     const month =
-        String(now.getMonth() + 1)
-        .padStart(2, "0");
+        String(
+            now.getMonth() + 1
+        ).padStart(2, "0");
 
 
     monthFilter.value =
@@ -169,7 +228,9 @@ function setupMonthFilter() {
 }
 
 
-/* ================= FORMAT RUPIAH ================= */
+/* =====================================================
+   FORMAT RUPIAH
+===================================================== */
 
 function formatRupiah(number) {
 
@@ -185,26 +246,40 @@ function formatRupiah(number) {
 }
 
 
-/* ================= FORMAT TANGGAL ================= */
+/* =====================================================
+   FORMAT TANGGAL
+===================================================== */
 
 function formatDate(date) {
 
     if (!date) {
+
         return "-";
+
     }
 
-    const parts = date.split("-");
+
+    const parts =
+        date.split("-");
+
 
     if (parts.length !== 3) {
+
         return date;
+
     }
 
-    return `${parts[2]}-${parts[1]}-${parts[0]}`;
+
+    return `
+        ${parts[2]}-${parts[1]}-${parts[0]}
+    `;
 
 }
 
 
-/* ================= ESCAPE HTML ================= */
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
 
 function escapeHTML(value) {
 
@@ -212,8 +287,11 @@ function escapeHTML(value) {
         value === null ||
         value === undefined
     ) {
+
         return "";
+
     }
+
 
     return String(value)
         .replaceAll("&", "&amp;")
@@ -225,24 +303,11 @@ function escapeHTML(value) {
 }
 
 
-/* ================= PRINT ================= */
+/* =====================================================
+   PRINT
+===================================================== */
 
 function printTable() {
-
-    /*
-        Pindah otomatis ke halaman Data Return
-        sebelum print.
-    */
-
-    document
-        .getElementById("dashboardSection")
-        .classList.add("d-none");
-
-
-    document
-        .getElementById("dataReturnSection")
-        .classList.remove("d-none");
-
 
     window.print();
 
